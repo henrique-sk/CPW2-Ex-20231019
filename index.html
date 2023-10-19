@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      async function createPromise(url) {
+        // instanciando uma promise
+        return new Promise(function (resolve, reject) {
+          // fazendo uma requisição ajax
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", url, true);
+
+          // Tratamento do retorno
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+              xhr.status == 200
+                ? resolve(xhr.responseText)
+                : reject(xhr.status);
+            }
+          };
+          
+          xhr.send();
+        });
+      }
+
+      const main = async () => {
+        try {
+          var value = await createPromise("data.json");
+          console.log(value);
+          var value2 = await createPromise("dfgdfg");
+          console.log(value2);
+        } catch (error) {
+          throw new Error("Não funcionou: ", error);
+        }
+      };
+
+      main();
+    </script>
+  </body>
+</html>
